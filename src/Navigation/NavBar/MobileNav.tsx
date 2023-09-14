@@ -13,31 +13,9 @@ import {
 import { MdEmail } from "react-icons/md";
 import { FaHamburger } from "react-icons/fa";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import navItems from "../Data/navItems";
 
 type Props = {};
-
-const navItems = [
-  {
-    name: "Home",
-    href: "/",
-  },
-  {
-    name: "About",
-    href: "/about",
-  },
-  {
-    name: "Portfolio",
-    href: "/portfolio",
-  },
-  {
-    name: "Resume",
-    href: "/resume",
-  },
-  {
-    name: "Contact",
-    href: "/contact",
-  },
-];
 
 // The last Box element should conatin drawer fuctionality with the same elements from desktopnav
 const MobileNav = (props: Props) => {

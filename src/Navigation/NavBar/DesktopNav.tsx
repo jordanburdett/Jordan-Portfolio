@@ -1,14 +1,16 @@
 import React from "react";
-import { Box, HStack, Icon, Link, Text } from "@chakra-ui/react";
+import { Box, HStack, Icon, Link, Text, useColorModeValue } from "@chakra-ui/react";
 import navItems from "../Data/navItems";
 
 const DesktopNav = () => {
+  const navColors = useColorModeValue("gray.100", "gray.900");
   return (
     <HStack
       spacing="8"
       justifyContent={"right"}
-      marginLeft={"20"}
-      marginRight={"20"}
+      paddingLeft={"20"}
+      paddingRight={"20"}
+      bg={navColors}
     >
       <Box
         p="3"
