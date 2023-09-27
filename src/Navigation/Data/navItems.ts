@@ -6,7 +6,7 @@ import { MdEmail } from 'react-icons/md'
 const navItems = [
     {
         name: "Home",
-        href: "/",
+        href: "/home",
         Icon: AiFillHome,
       },
       {
