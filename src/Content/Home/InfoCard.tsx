@@ -21,7 +21,7 @@ type Props = {
 
 const InfoCard = (props: Props) => {
   return (
-    <Card margin={"10px"} maxW={"xl"} minW={"sm"}>
+    <Card margin={"10px"} maxW={"xl"} minW={"sm"} >
       <CardHeader>
         <Heading size="md">{props.header}</Heading>
       </CardHeader>
