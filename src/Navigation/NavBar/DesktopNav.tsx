@@ -1,8 +1,12 @@
 import React from "react";
-import { Box, HStack, Icon, Text, Link, useColorModeValue } from "@chakra-ui/react";
+import { Box, HStack, Icon, Text, useColorModeValue } from "@chakra-ui/react";
 import navItems from "../Data/navItems";
+import { Link } from "react-router-dom";
+
+
 
 const DesktopNav = () => {
+  
   const navColors = useColorModeValue("gray.100", "gray.900");
   return (
     <HStack
@@ -22,9 +26,8 @@ const DesktopNav = () => {
       </Box>
       {navItems.map((item) => (
         <Box p="3" key={item.name}>
-          <Link href={item.href} >
+          <Link to={item.href} >
             <HStack>
-              <Icon as={item.Icon} fontSize={"20px"} />
               <Text fontSize={"xl"}>{item.name}</Text>
             </HStack>
           </Link>

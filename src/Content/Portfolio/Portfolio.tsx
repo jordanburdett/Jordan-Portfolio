@@ -1,11 +1,32 @@
-import React from 'react'
+import React, { useState } from "react";
+import NavBar from "../../Navigation/NavBar/NavBar";
+import { Box, Container, Flex, HStack } from "@chakra-ui/react";
+import ActiveProject from "./Projects/ActiveProject";
+import ProjectList from "./Projects/ProjectList";
 
-type Props = {}
+type Props = {};
 
 const Portfolio = (props: Props) => {
-  return (
-    <div>Portfolio</div>
-  )
-}
+  const [activeProject, setActiveProject] = useState<string>("");
 
-export default Portfolio
+  return (
+    <>
+      <NavBar />
+      <HStack marginTop="30px">
+        <Flex wrap={"wrap"}>
+          <Box>
+            <ProjectList
+              setActiveProject={setActiveProject}
+              activeProject={activeProject}
+            />
+          </Box>
+          <Box>
+            <ActiveProject activeProject={activeProject} />
+          </Box>
+        </Flex>
+      </HStack>
+    </>
+  );
+};
+
+export default Portfolio;

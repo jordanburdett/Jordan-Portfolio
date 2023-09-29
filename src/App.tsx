@@ -9,6 +9,7 @@ import Portfolio from "./Content/Portfolio/Portfolio";
 import Resume from "./Content/Resume/Resume";
 import Contact from "./Content/Contact/Contact";
 import Footer from "./Footer/Footer";
+import { extendTheme } from "@chakra-ui/react";
 
 const router = createBrowserRouter([
   {
@@ -37,10 +38,16 @@ const router = createBrowserRouter([
   },
 ]);
 
+const config = {
+  initialColorMode: "dark",
+  useSystemColorMode: true,
+};
+
+const theme = extendTheme({ config });
+
 const App: React.FC = () => {
   return (
-    <ChakraProvider>
-      <NavBar />
+    <ChakraProvider theme={theme}>
       <RouterProvider router={router} />
       <Footer />
     </ChakraProvider>

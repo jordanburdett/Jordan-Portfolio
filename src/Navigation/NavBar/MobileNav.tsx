@@ -3,7 +3,6 @@ import {
   HStack,
   Icon,
   Box,
-  Link,
   Text,
   Flex,
   useColorModeValue,
@@ -14,6 +13,7 @@ import { MdEmail } from "react-icons/md";
 import { FaHamburger } from "react-icons/fa";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import navItems from "../Data/navItems";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -50,13 +50,23 @@ const MobileNav = (props: Props) => {
       </HStack>
 
       <Flex flexWrap={"wrap"} bg={navColors}>
-        <Collapse in={menuExpanded} animateOpacity style={{flexWrap: "wrap", width: "100%"}}>
+        <Collapse
+          in={menuExpanded}
+          animateOpacity
+          style={{ flexWrap: "wrap", width: "100%" }}
+        >
           {navItems.map((item) => (
             <Box p="3" width="100%" key={item.name}>
-              <Link href={item.href} display="flex">
-                <Text fontSize={"xl"} marginRight={"40px"} marginLeft={"auto"}>
-                  {item.name}
-                </Text>
+              <Link to={item.href}>
+                <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                  <Text
+                    fontSize={"xl"}
+                    marginRight={"40px"}
+                    marginLeft={"auto"}
+                  >
+                    {item.name}
+                  </Text>
+                </div>
               </Link>
             </Box>
           ))}

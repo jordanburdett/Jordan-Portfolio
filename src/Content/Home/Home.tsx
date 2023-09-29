@@ -16,6 +16,7 @@ import {
   SkillCardCollectionData,
   skillCardCollection,
 } from "./Data/CardMockData";
+import NavBar from "../../Navigation/NavBar/NavBar";
 type Props = {};
 
 const Home = (props: Props) => {
@@ -30,6 +31,7 @@ const Home = (props: Props) => {
   };
   return (
     <>
+      <NavBar />
       <Box as="section" bg="bg.surface">
         <Container py={{ base: "16", md: "24" }}>
           <Stack spacing={{ base: "8", md: "10" }}>
@@ -49,10 +51,9 @@ const Home = (props: Props) => {
               direction={{ base: "column", sm: "row" }}
               justify="center"
             >
-              <Button variant="secondary" size="xl" onClick={onProjectClick}>
+              <Button size="xl" style={{padding: "10px"}}onClick={onProjectClick}>
                 See my latest projects here
               </Button>
-              <Button size="xl" onClick={onProjectClick}>Portfolio</Button>
             </Stack>
           </Stack>
         </Container>

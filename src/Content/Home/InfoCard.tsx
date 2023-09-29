@@ -28,7 +28,7 @@ const InfoCard = (props: Props) => {
       <CardBody>
         <Stack divider={<StackDivider />} spacing="4">
           {props.bodyItems.map((item) => (
-            <Box>
+            <Box key={item.heading}>
               <Heading size="xs" textTransform="uppercase">
                 {item.heading}
               </Heading>
