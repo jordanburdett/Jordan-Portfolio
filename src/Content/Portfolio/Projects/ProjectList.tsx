@@ -18,55 +18,95 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { Project } from "./Data/project";
 
 type Props = {
-  setActiveProject: (projectName: string) => void;
-  activeProject: string;
+  setActiveProject: (project: Project) => void;
+  activeProject: Project;
 };
 
 const projectsMock = [
   {
-    Name: "Project 1",
-    Link: "https://www.google.com",
-    Type: "WebApp",
-    Technologies: ["Angular"],
-    Content: [
+    title: "Score Games",
+    href: "https://www.scoregames.net",
+    summary: "Card scoring game works in realtime with instant score updates",
+    type: "WebApp",
+    technologies: ["React", "Firebase", "Javascript"],
+    isHidden: false,
+    content: [
       {
-        image: "https://via.placeholder.com/150",
-        text: "This is a description",
+        image: "https://fakeimg.pl/1600x900",
+        text: "Score Games is a card scoring game built with React and Firebase.",
       },
       {
-        image: "https://via.placeholder.com/150",
-        text: "This is a description",
+        text: "The application allows the user to sign in and store their games via google authentication.",
       },
       {
-        image: "https://via.placeholder.com/150",
-        text: "This is a description",
+        image: "https://fakeimg.pl/1600x900",
+        text: "This is a ",
       },
       {
-        image: "https://via.placeholder.com/150",
+        image: "https://fakeimg.pl/1600x900",
         text: "This is a description",
       },
     ],
   },
   {
-    Name: "Project 2",
-    Link: "https://www.google.com",
-    Type: "WebApp",
-    Technologies: ["React", "Node"],
+    title: "Lake powell calendar",
+    href: "https://www.scoregames.net",
+    summary: "Card scoring game works in realtime with instant score updates",
+    type: "WebApp",
+    technologies: ["React", "Firebase", "Javascript"],
+    isHidden: false,
+    content: [
+      {
+        image: "https://fakeimg.pl/1600x900",
+        text: "Score Games is a card scoring game built with React and Firebase.",
+      },
+      {
+        text: "The application allows the user to sign in and store their games via google authentication.",
+      },
+      {
+        image: "https://fakeimg.pl/1600x900",
+        text: "This is a ",
+      },
+      {
+        image: "https://fakeimg.pl/1600x900",
+        text: "This is a description",
+      },
+    ],
   },
   {
-    Name: "Project 3",
-    Link: "https://www.google.com",
-    Type: "WebApp",
-    Technologies: ["React"],
+    title: "Soday Crazy",
+    href: "https://www.scoregames.net",
+    summary: "Card scoring game works in realtime with instant score updates",
+    type: "WebApp",
+    technologies: ["React", "Firebase", "Javascript"],
+    isHidden: false,
+    content: [
+      {
+        image: "https://fakeimg.pl/1600x900",
+        text: "Score Games is a card scoring game built with React and Firebase.",
+      },
+      {
+        text: "The application allows the user to sign in and store their games via google authentication.",
+      },
+      {
+        image: "https://fakeimg.pl/1600x900",
+        text: "This is a ",
+      },
+      {
+        image: "https://fakeimg.pl/1600x900",
+        text: "This is a description",
+      },
+    ],
   },
 ];
 
 const ProjectList = (props: Props) => {
   const [projects, setProjects] = useState(projectsMock);
   const { colorMode } = useColorMode();
-  const [isMobile] = useMediaQuery("(max-width: 687px)");
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
   const [isTableShowing, setIsTableShowing] = useState(true);
 
   const onArrowClick = () => {
@@ -115,26 +155,24 @@ const ProjectList = (props: Props) => {
               <Tr
                 cursor="pointer"
                 onClick={() => {
-                  props.setActiveProject(project.Name);
+                  props.setActiveProject(project);
 
                   if (isMobile) {
                     onArrowClick();
                   }
                 }}
                 _hover={{ bg: colorMode === "light" ? "gray.100" : "gray.700" }}
-                bg={
-                  project.Name === props.activeProject ? "gray.700" : "default"
-                }
-                key={project.Name}
+                bg={project === props.activeProject ? "gray.700" : "default"}
+                key={project.title}
               >
                 <Td>
-                  <Text>{project.Name}</Text>
+                  <Text>{project.title}</Text>
                 </Td>
                 <Td>
-                  <Text>{project.Type}</Text>
+                  <Text>{project.type}</Text>
                 </Td>
                 <Td>
-                  <Text>{project?.Technologies[0]}</Text>
+                  <Text>{project?.technologies[0]}</Text>
                 </Td>
               </Tr>
             ))}

@@ -1,19 +1,32 @@
 import React, { useState } from "react";
 import NavBar from "../../Navigation/NavBar/NavBar";
-import { Box, Container, Flex, HStack } from "@chakra-ui/react";
+import { Box, Container, Flex, HStack, useMediaQuery } from "@chakra-ui/react";
 import ActiveProject from "./Projects/ActiveProject";
 import ProjectList from "./Projects/ProjectList";
+import { Project } from "./Projects/Data/project";
 
 type Props = {};
 
+// mock data for Project type
+const mockProject: Project = {
+  title: "",
+  href: "",
+  summary: "",
+  type: "",
+  technologies: [""],
+  isHidden: true,
+  content: [],
+};
+
 const Portfolio = (props: Props) => {
-  const [activeProject, setActiveProject] = useState<string>("");
+  const [activeProject, setActiveProject] = useState<Project>(mockProject);
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   return (
     <>
       <NavBar />
-      <HStack marginTop="30px">
-        <Flex wrap={"wrap"} justifyContent={"center"}>
+      <HStack marginTop="30px" flexDirection={"column"}>
+        <Flex wrap={isMobile ? "wrap" : "nowrap"} justifyContent={"center"}>
           <Box>
             <ProjectList
               setActiveProject={setActiveProject}
