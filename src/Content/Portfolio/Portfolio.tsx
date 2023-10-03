@@ -13,7 +13,7 @@ const Portfolio = (props: Props) => {
     <>
       <NavBar />
       <HStack marginTop="30px">
-        <Flex wrap={"wrap"}>
+        <Flex wrap={"wrap"} justifyContent={"center"}>
           <Box>
             <ProjectList
               setActiveProject={setActiveProject}
