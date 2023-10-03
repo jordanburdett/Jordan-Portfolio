@@ -1,23 +1,19 @@
 import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
 import {
-  Button,
-  List,
   Table,
   TableCaption,
   TableContainer,
   Tbody,
   Td,
   Text,
-  Tfoot,
   Th,
   Thead,
   Tr,
   useColorMode,
   useMediaQuery,
   Collapse,
-  Icon,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Project } from "./Data/project";
 
 type Props = {
@@ -104,7 +100,7 @@ const projectsMock = [
 ];
 
 const ProjectList = (props: Props) => {
-  const [projects, setProjects] = useState(projectsMock);
+  const [projects] = useState(projectsMock);
   const { colorMode } = useColorMode();
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   const [isTableShowing, setIsTableShowing] = useState(true);

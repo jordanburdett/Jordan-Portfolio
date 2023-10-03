@@ -1,4 +1,4 @@
-import React from "react";
+
 import { Box, Divider, Heading, Text, Image, Collapse } from "@chakra-ui/react";
 import { Project } from "./Data/project";
 

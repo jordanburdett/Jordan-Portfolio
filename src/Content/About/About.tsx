@@ -1,10 +1,8 @@
-import React from "react";
+
 import NavBar from "../../Navigation/NavBar/NavBar";
-import { Box, Container, Flex, HStack, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
 
-type Props = {};
-
-const About = (props: Props) => {
+const About = () => {
   return (
     <>
       <NavBar />

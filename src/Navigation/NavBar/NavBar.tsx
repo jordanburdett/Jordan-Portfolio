@@ -1,4 +1,3 @@
-import React from "react";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 import { useMediaQuery } from "@chakra-ui/react";

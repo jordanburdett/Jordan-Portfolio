@@ -7,12 +7,10 @@ import {
   useColorMode,
   Button,
 } from "@chakra-ui/react";
-import React from "react";
-import { FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
 
-type Props = {};
+import { FaLinkedin, FaGithub } from "react-icons/fa";
 
-const Footer = (props: Props) => {
+const Footer = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (

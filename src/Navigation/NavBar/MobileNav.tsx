@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   HStack,
   Icon,
@@ -6,19 +6,14 @@ import {
   Text,
   Flex,
   useColorModeValue,
-  Slide,
   Collapse,
 } from "@chakra-ui/react";
-import { MdEmail } from "react-icons/md";
-import { FaHamburger } from "react-icons/fa";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import navItems from "../Data/navItems";
 import { Link } from "react-router-dom";
 
-type Props = {};
-
 // The last Box element should conatin drawer fuctionality with the same elements from desktopnav
-const MobileNav = (props: Props) => {
+const MobileNav = () => {
   const [menuExpanded, setMenuExpanded] = useState(false);
   const hamburgerClicked = () => {
     setMenuExpanded((prev) => !prev);

@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
-import { ChakraProvider, Container } from "@chakra-ui/react";
-import NavBar from "./Navigation/NavBar/NavBar";
+import { ChakraProvider } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Content/Home/Home";
 import About from "./Content/About/About";

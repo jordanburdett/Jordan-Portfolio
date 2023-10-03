@@ -1,7 +1,5 @@
 import {
-  Center,
   Text,
-  VStack,
   Button,
   HStack,
   Box,
@@ -10,20 +8,17 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import { useState } from "react";
 import InfoCard from "./InfoCard";
 import {
   SkillCardCollectionData,
   skillCardCollection,
 } from "./Data/CardMockData";
 import NavBar from "../../Navigation/NavBar/NavBar";
-type Props = {};
 
-const Home = (props: Props) => {
+const Home = () => {
   const navigate = useNavigate();
-  const [skillCards, setSkillCards] = useState<skillCardCollection>(
-    SkillCardCollectionData
-  );
+  const [skillCards] = useState<skillCardCollection>(SkillCardCollectionData);
 
   const onProjectClick = () => {
     // using react router dom to navigate to the portfolio page
@@ -36,7 +31,9 @@ const Home = (props: Props) => {
         <Container py={{ base: "16", md: "24" }}>
           <Stack spacing={{ base: "8", md: "10" }}>
             <Stack spacing={{ base: "4", md: "5" }} align="center">
-              <Heading size={{ base: "md", lg: "lg", xl: "xl" }}>Jordan Burdett</Heading>
+              <Heading size={{ base: "md", lg: "lg", xl: "xl" }}>
+                Jordan Burdett
+              </Heading>
               <Text
                 color="fg.muted"
                 maxW="2xl"
@@ -51,7 +48,11 @@ const Home = (props: Props) => {
               direction={{ base: "column", sm: "row" }}
               justify="center"
             >
-              <Button size="xl" style={{padding: "10px"}}onClick={onProjectClick}>
+              <Button
+                size="xl"
+                style={{ padding: "10px" }}
+                onClick={onProjectClick}
+              >
                 See my latest projects here
               </Button>
             </Stack>
