@@ -1,4 +1,5 @@
 export const FrontEndSkillCardData = {
+  Id: "1",
   Header: "Front End Skills",
   bodyItems: [
     { heading: "Languages", text: "Javascript, Typescript" },
@@ -8,6 +9,7 @@ export const FrontEndSkillCardData = {
 };
 
 export const BackEndSkillCardData = {
+  Id: "2",
   Header: "Back End Skills",
   bodyItems: [
     { heading: "Nodejs", text: "3 years" },
@@ -17,6 +19,7 @@ export const BackEndSkillCardData = {
 };
 
 export const EducationSkillCardData = {
+  Id: "3",
   Header: "Education",
   bodyItems: [
     { heading: "Brigham Young University - Idaho", text: "2018 - 2021" },
@@ -28,6 +31,7 @@ export const EducationSkillCardData = {
 export const SkillCardCollectionData = [FrontEndSkillCardData, BackEndSkillCardData, EducationSkillCardData];
 
 export type skillCardCollection = {
+  Id: string;
   Header: string;
   bodyItems: { heading: string; text: string }[];
 }[];
