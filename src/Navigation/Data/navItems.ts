@@ -29,6 +29,16 @@ const navItems = [
         href: "/contact",
         Icon: MdEmail
       },
+      {
+        name: "Admin",
+        href: "/login",
+        Icon: MdEmail
+      },
+      {
+        name: "Dashboard",
+        href: "/dashboard",
+        Icon: MdEmail
+      }
 ];
 
 export default navItems;
