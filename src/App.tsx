@@ -55,10 +55,6 @@ const config = {
 const theme = extendTheme({ config });
 
 const App: React.FC = () => {
-  console.log("ORIGIN: " + window.location.origin);
-  console.log(window.location.host);
-  console.log(window.location.hostname);
-
   return (
     <ChakraProvider theme={theme}>
       <RouterProvider router={router} />
