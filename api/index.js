@@ -3,7 +3,7 @@
 const app = require('express')();
 
 app.get('/api/infocard/getallinfocards', (req, res) => {
-    res.json({
+    res.end({
         id: "1",
         Header: "Front End Skills",
         Hidden: false,
