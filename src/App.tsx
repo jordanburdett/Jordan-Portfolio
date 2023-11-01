@@ -9,7 +9,7 @@ import Resume from "./Content/Resume/Resume";
 import Contact from "./Content/Contact/Contact";
 import Footer from "./Footer/Footer";
 import { extendTheme } from "@chakra-ui/react";
-import Dashboard from "./Content/Dashboard/dashboard";
+import Dashboard from "./Content/Dashboard/Dashboard";
 import Login from "./Content/Auth/Login";
 
 const router = createBrowserRouter([
