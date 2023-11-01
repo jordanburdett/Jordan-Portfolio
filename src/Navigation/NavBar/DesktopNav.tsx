@@ -1,4 +1,3 @@
-
 import { Box, HStack, Text, useColorModeValue } from "@chakra-ui/react";
 import navItems from "../Data/navItems";
 import { Link } from "react-router-dom";

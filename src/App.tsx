@@ -9,6 +9,8 @@ import Resume from "./Content/Resume/Resume";
 import Contact from "./Content/Contact/Contact";
 import Footer from "./Footer/Footer";
 import { extendTheme } from "@chakra-ui/react";
+import Dashboard from "./Content/Dashboard/dashboard";
+import Login from "./Content/Auth/Login";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
     path: "/contact",
     element: <Contact />,
   },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
 ]);
 
 const config = {
@@ -45,6 +55,10 @@ const config = {
 const theme = extendTheme({ config });
 
 const App: React.FC = () => {
+  console.log("ORIGIN: " + window.location.origin);
+  console.log(window.location.host);
+  console.log(window.location.hostname);
+
   return (
     <ChakraProvider theme={theme}>
       <RouterProvider router={router} />

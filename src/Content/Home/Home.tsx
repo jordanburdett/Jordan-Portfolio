@@ -8,22 +8,36 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InfoCard from "./InfoCard";
 import {
   SkillCardCollectionData,
   skillCardCollection,
 } from "./Data/CardMockData";
 import NavBar from "../../Navigation/NavBar/NavBar";
+import { getInfoCards } from "../../Helpers/APIInfoCardHelper";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [skillCards] = useState<skillCardCollection>(SkillCardCollectionData);
+  const [skillCards, setSkillCards] = useState<skillCardCollection>(SkillCardCollectionData);
+
+  useEffect(() => {
+    getInfoCards().then((result) => {
+      if (result) {
+        setSkillCards(result);
+        console.log(result);
+      }
+    });
+  }, [])
+  
 
   const onProjectClick = () => {
     // using react router dom to navigate to the portfolio page
     navigate("/portfolio");
   };
+
+
+
   return (
     <>
       <NavBar />
@@ -67,7 +81,7 @@ const Home = () => {
       >
         {skillCards.map((card) => (
           <InfoCard
-            key={card.Header}
+            key={card.id}
             header={card.Header}
             bodyItems={card.bodyItems}
           />
