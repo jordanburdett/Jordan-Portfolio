@@ -17,3 +17,5 @@ app.get('/api/infocard/getallinfocards', (req, res) => {
         ],
       });
 })
+
+module.exports = app;
