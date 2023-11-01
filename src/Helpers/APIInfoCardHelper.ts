@@ -1,9 +1,6 @@
-const base = window.location.origin;
-let baseInfoCard = base + "/infocard";
+import { getBaseApi } from "./BaseAPIHelper";
 
-if (window.location.hostname === "localhost") {
-    baseInfoCard = "http://localhost:3000/infocard";
-}
+const baseInfoCard = getBaseApi() + "/infocard";
 
 export const getInfoCards = async () => {
     console.log("GET ON: " + baseInfoCard + "/getinfocards")

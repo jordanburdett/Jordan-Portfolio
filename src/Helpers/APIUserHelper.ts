@@ -1,4 +1,6 @@
-const baseURL = "http://localhost:3000/users";
+import { getBaseApi } from "./BaseAPIHelper";
+
+const baseURL = getBaseApi() + "/users";
 
 export const userSignIn = async (email: string, password: string) => {
   const options = {
