@@ -1,5 +1,9 @@
 const app = require("express")();
+const bodyParser = require('body-parser');
 const localPort = 3000;
+
+app.use(express.json());
+app.user(bodyParser.json());
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
