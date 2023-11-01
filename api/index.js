@@ -1,16 +1,12 @@
-const app = require('express')();
-const { v4 } = require('uuid');
+const app = require("express")();
+const localPort = 3000;
 
-app.get('/api', (req, res) => {
-  const path = `/api/item/${v4()}`;
-  res.setHeader('Content-Type', 'text/html');
-  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
-  res.end(`Hello! Go to item: <a href="${path}">${path}</a>`);
-});
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var infoCardRouter = require('./routes/infoCard');
 
-app.get('/api/item/:slug', (req, res) => {
-  const { slug } = req.params;
-  res.end(`Item: ${slug}`);
-});
+app.use("api/", indexRouter);
+app.use("api/infocard", infoCardRouter);
+app.use("api/users", usersRouter);
 
 module.exports = app;
