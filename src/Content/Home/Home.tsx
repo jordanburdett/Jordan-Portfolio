@@ -6,20 +6,21 @@ import {
   Container,
   Heading,
   Stack,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import InfoCard from "./InfoCard";
 import {
-  SkillCardCollectionData,
-  skillCardCollection,
+  InfoCardType
 } from "./Data/CardMockData";
 import NavBar from "../../Navigation/NavBar/NavBar";
 import { getInfoCards } from "../../Helpers/APIInfoCardHelper";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [skillCards, setSkillCards] = useState<skillCardCollection>(SkillCardCollectionData);
+  const [skillCards, setSkillCards] = useState<InfoCardType[]>([]);
+  const [isMobile] = useMediaQuery("(max-width: 1200px)");
 
   useEffect(() => {
     getInfoCards().then((result) => {
@@ -75,15 +76,17 @@ const Home = () => {
       </Box>
       <HStack
         justifyContent={"space-evenly"}
-        wrap={"wrap"}
+        wrap={isMobile ? "wrap" : "nowrap"}
         marginRight={"40px"}
         marginLeft={"40px"}
+        alignItems={"stretch"}
       >
         {skillCards.map((card) => (
           <InfoCard
             key={card.id}
             header={card.Header}
             bodyItems={card.bodyItems}
+            fullWidth={isMobile ? true : false}
           />
         ))}
       </HStack>

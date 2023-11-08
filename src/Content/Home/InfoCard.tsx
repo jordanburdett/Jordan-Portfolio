@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 
 type Props = {
+  fullWidth?: boolean;
   header: string;
   bodyItems: {
     heading: string;
@@ -20,7 +21,7 @@ type Props = {
 
 const InfoCard = (props: Props) => {
   return (
-    <Card margin={"10px"} maxW={"xl"} minW={"sm"} >
+    <Card margin={"10px"} maxW={"xl"} minW={"sm"} width={props.fullWidth ? "90%" : ""}>
       <CardHeader>
         <Heading size="md">{props.header}</Heading>
       </CardHeader>
