@@ -12,8 +12,12 @@ import {
   Box,
   Text,
   Textarea,
+  Checkbox,
 } from "@chakra-ui/react";
-import { addNewInfoCard, updateInfoCard } from "../../../Helpers/APIInfoCardHelper";
+import {
+  addNewInfoCard,
+  updateInfoCard,
+} from "../../../Helpers/APIInfoCardHelper";
 
 type Props = {
   isEditing: boolean;
@@ -55,10 +59,6 @@ const EditInfoCard = (props: Props) => {
       case "InfoCardHeader":
         newInfoCard.Header = event.target.value;
         break;
-      case "Hidden":
-        newInfoCard.Hidden = event.target.value === "true" ? true : false;
-        // this was copilot -- it probably will pass a 0 or 1 when checkbox is implemented or we will store it in its own state variable
-        break;
       case "InfoCardSubHeading":
         if (subHeadingIndex != null) {
           newInfoCard.bodyItems[subHeadingIndex].heading = event.target.value;
@@ -74,6 +74,18 @@ const EditInfoCard = (props: Props) => {
         return;
     }
     props.setSelectedInfoCard(newInfoCard);
+  };
+
+  const handleHiddenChange = () => {
+    const newInfoCard: InfoCardType = {
+      ...props.selectedInfoCard,
+    };
+
+    newInfoCard.Hidden = !newInfoCard.Hidden;
+    props.setSelectedInfoCard(newInfoCard);
+    if (isSaveButtonActive === false) {
+      setisSaveButtonActive(true);
+    }
   };
 
   const saveInfoCard = async () => {
@@ -97,13 +109,11 @@ const EditInfoCard = (props: Props) => {
     if (isNewInfoCard) {
       const result = await addNewInfoCard(props.selectedInfoCard);
       console.log(result);
-    }
-    else {
+    } else {
       const result = await updateInfoCard(props.selectedInfoCard);
       console.log(result);
     }
-    
-    
+
     // reset spinning button display error if error TODO
 
     setisSaveButtonActive(false);
@@ -157,6 +167,12 @@ const EditInfoCard = (props: Props) => {
           bodyItems={props.selectedInfoCard?.bodyItems}
         />
       )}
+      <Checkbox
+        isChecked={props.selectedInfoCard.Hidden}
+        onChange={handleHiddenChange}
+      >
+        isHidden
+      </Checkbox>
       {isSaveButtonActive && <Button onClick={saveInfoCard}>Save</Button>}
     </>
   );
