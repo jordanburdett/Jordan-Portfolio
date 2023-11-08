@@ -1,21 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, HStack, Text, Button, VStack } from "@chakra-ui/react";
 import {
   EmptyInfoCardData,
-  InfoCardType,
-  SkillCardCollectionData,
+  InfoCardType
 } from "../../Home/Data/CardMockData";
 import InfoCardList from "./InfoCardList";
 import EditInfoCard from "./EditInfoCard";
 import NavBar from "../../../Navigation/NavBar/NavBar";
+import { useNavigate } from "react-router-dom";
+import { getAllInfoCards } from "../../../Helpers/APIInfoCardHelper";
 
 const InfoCardEdit = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [InfoCards, setInfoCards] = useState<InfoCardType[]>(
-    SkillCardCollectionData
-  );
+  const [InfoCards, setInfoCards] = useState<InfoCardType[]>([]);
   const [selectedInfoCard, setSelectedInfoCard] =
     useState<InfoCardType>(EmptyInfoCardData);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("token") === null) {
+      console.log("user effect ran in dashboard");
+      navigate("/login");
+    }
+  });
+
+  useEffect(() => {
+    getAllInfoCards().then((infoCards) => setInfoCards(infoCards));
+  }, [])
 
   const toggleEditing = () => {
     setIsEditing(!isEditing);
@@ -43,6 +55,7 @@ const InfoCardEdit = () => {
             selectedInfoCard={selectedInfoCard}
             setInfoCards={setInfoCards}
             setSelectedInfoCard={setSelectedInfoCard}
+            infoCards={InfoCards}
           />
         </VStack>
       </HStack>

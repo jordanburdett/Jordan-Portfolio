@@ -54,6 +54,8 @@ router.put("/updateinfocard", authenticateJwt, async function (req, res, next) {
     res.sendStatus(403);
     return;
   }
+  
+  console.log("updateInfoCard attempted");
 
   const infoCard = req?.body?.infoCard;
 

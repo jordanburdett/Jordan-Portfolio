@@ -44,7 +44,7 @@ export type skillCardCollection = {
   id: string;
   Header: string;
   Hidden: boolean;
-  bodyItems: { heading: string; text: string }[];
+  bodyItems: {id: string, heading: string; text: string }[];
 }[];
 
 export type InfoCardType = {
