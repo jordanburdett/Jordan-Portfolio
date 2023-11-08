@@ -31,6 +31,13 @@ export const EducationSkillCardData = {
   ],
 };
 
+export const EmptyInfoCardData = {
+  id: "",
+  Header: "",
+  Hidden: false,
+  bodyItems: [],
+};
+
 export const SkillCardCollectionData = [FrontEndSkillCardData, BackEndSkillCardData, EducationSkillCardData];
 
 export type skillCardCollection = {
@@ -39,3 +46,10 @@ export type skillCardCollection = {
   Hidden: boolean;
   bodyItems: { heading: string; text: string }[];
 }[];
+
+export type InfoCardType = {
+  id: string;
+  Header: string;
+  Hidden: boolean;
+  bodyItems: { heading: string; text: string }[];
+};

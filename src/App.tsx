@@ -11,6 +11,7 @@ import Footer from "./Footer/Footer";
 import { extendTheme } from "@chakra-ui/react";
 import Dashboard from "./Content/Dashboard/Dashboard";
 import Login from "./Content/Auth/Login";
+import InfoCardEdit from "./Content/Dashboard/InfoCardEdit/InfoCardEdit";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/dashboard/infocardedit",
+    element: <InfoCardEdit />,
   },
 ]);
 

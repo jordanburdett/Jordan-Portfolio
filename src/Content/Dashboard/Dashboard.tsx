@@ -1,40 +1,31 @@
-import { Button } from "@chakra-ui/react"
+import { Button } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 const Dashboard = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-      if (localStorage.getItem("token") === null) {
-        console.log("user effect ran in dashboard");
-        navigate("/login");
-      }
-    })
-    
-    
-    const logStorage = () => {
-        console.log(localStorage.getItem("token"));
+  useEffect(() => {
+    if (localStorage.getItem("token") === null) {
+      console.log("user effect ran in dashboard");
+      navigate("/login");
     }
+  });
 
-    const buttonOneClick = () => {
-        localStorage.setItem("token", "test");
-        logStorage();
-    }
+  const infoCardEditClick = () => {
+    navigate("/dashboard/infocardedit");
+  };
 
-    const buttonTwoClick = () => {
-        console.log("Button Two Clicked")
-        localStorage.removeItem("token");
-        logStorage();
-    }
+  const projectsEditButton = () => {
+    navigate("/dashboard/projectsedit");
+  };
 
   return (
     <>
-        <Button onClick={buttonOneClick}>ButtonOne</Button>
-        <Button onClick={buttonTwoClick}>ButtonTwo</Button>
+      <Button onClick={infoCardEditClick}>Info Card Edit</Button>
+      <Button onClick={projectsEditButton}>Projects Edit</Button>
     </>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
