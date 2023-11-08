@@ -1,4 +1,3 @@
-import React from "react";
 import { InfoCardType } from "../../Home/Data/CardMockData";
 import { Box, Center, Divider, Text, useColorModeValue, Button } from "@chakra-ui/react";
 
