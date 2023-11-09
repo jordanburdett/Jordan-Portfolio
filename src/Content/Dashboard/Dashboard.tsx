@@ -1,6 +1,9 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Stack } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { Divider } from "@chakra-ui/react";
+import NavBar from "../../Navigation/NavBar/NavBar";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -22,8 +25,12 @@ const Dashboard = () => {
 
   return (
     <>
-      <Button onClick={infoCardEditClick}>Info Card Edit</Button>
-      <Button onClick={projectsEditButton}>Projects Edit</Button>
+      <NavBar />
+      <Stack divider={<Divider />} spacing={4} margin={"20px"}>
+        <Button onClick={infoCardEditClick}>Info Card Edit</Button>
+        <Button onClick={projectsEditButton}>Projects Edit</Button>
+        {/* Maybe we can display some analytic information here. */}
+      </Stack>
     </>
   );
 };
