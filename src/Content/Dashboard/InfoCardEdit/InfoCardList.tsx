@@ -24,7 +24,7 @@ const InfoCardList = (props: Props) => {
   return (
     <>
     <Button onClick={onCreateNewInfoCard}>Create New InfoCard</Button>
-      <Text fontSize={"4xl"}>Info Card List</Text>
+      <Text fontSize={"4xl"} margin={"10px"}>Info Card List</Text>
       {props.infoCards.map((infoCard, index) => (
         <Box key={infoCard.id}>
           {index !== 0 && <Divider />}

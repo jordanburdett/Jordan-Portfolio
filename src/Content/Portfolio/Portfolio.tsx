@@ -7,6 +7,7 @@ import { Project } from "./Projects/Data/project";
 
 // mock data for Project type
 const mockProject: Project = {
+  id: 0,
   title: "",
   href: "",
   summary: "",

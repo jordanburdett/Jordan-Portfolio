@@ -30,9 +30,14 @@ const InfoCardEdit = () => {
     setIsEditing(!isEditing);
   };
 
+  const onBacktoDashboardClick = () => {
+    navigate("/dashboard");
+  };
+
   return (
     <>
       <NavBar />
+      <Button onClick={onBacktoDashboardClick} margin={"20px"}>Back To Dashboard</Button>
       <Center>
         <Flex>
           <Box margin={"30px"} marginTop={"50px"}>

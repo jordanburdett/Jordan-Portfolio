@@ -21,8 +21,9 @@ type Props = {
   activeProject: Project;
 };
 
-const projectsMock = [
+export const projectsMock: Project[] = [
   {
+    id: 0,
     title: "Score Games",
     href: "https://www.scoregames.net",
     summary: "Card scoring game works in realtime with instant score updates",
@@ -31,23 +32,28 @@ const projectsMock = [
     isHidden: false,
     content: [
       {
+        id: 0,
         image: "https://fakeimg.pl/1600x900",
         text: "Score Games is a card scoring game built with React and Firebase.",
       },
       {
+        id: 1,
         text: "The application allows the user to sign in and store their games via google authentication.",
       },
       {
+        id: 2,
         image: "https://fakeimg.pl/1600x900",
         text: "This is a ",
       },
       {
+        id: 3,
         image: "https://fakeimg.pl/1600x900",
         text: "This is a description",
       },
     ],
   },
   {
+    id: 1,
     title: "Lake powell calendar",
     href: "https://www.scoregames.net",
     summary: "Card scoring game works in realtime with instant score updates",
@@ -56,23 +62,28 @@ const projectsMock = [
     isHidden: false,
     content: [
       {
+        id: 0,
         image: "https://fakeimg.pl/1600x900",
         text: "Score Games is a card scoring game built with React and Firebase.",
       },
       {
+        id: 1,
         text: "The application allows the user to sign in and store their games via google authentication.",
       },
       {
+        id: 2,
         image: "https://fakeimg.pl/1600x900",
         text: "This is a ",
       },
       {
+        id: 3,
         image: "https://fakeimg.pl/1600x900",
         text: "This is a description",
       },
     ],
   },
   {
+    id: 2,
     title: "Soday Crazy",
     href: "https://www.scoregames.net",
     summary: "Card scoring game works in realtime with instant score updates",
@@ -81,17 +92,21 @@ const projectsMock = [
     isHidden: false,
     content: [
       {
+        id: 0,
         image: "https://fakeimg.pl/1600x900",
         text: "Score Games is a card scoring game built with React and Firebase.",
       },
       {
+        id: 1,
         text: "The application allows the user to sign in and store their games via google authentication.",
       },
       {
+        id: 2,
         image: "https://fakeimg.pl/1600x900",
         text: "This is a ",
       },
       {
+        id: 3,
         image: "https://fakeimg.pl/1600x900",
         text: "This is a description",
       },

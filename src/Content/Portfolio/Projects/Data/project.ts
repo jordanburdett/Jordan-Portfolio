@@ -1,4 +1,5 @@
 export type Project = {
+    id: number;
     title: string;
     href: string;
     type: string;
@@ -9,6 +10,7 @@ export type Project = {
 }
 
 export type ProjectContent = {
+    id: number;
     text: string;
     image?: string;
     imageAlt?: string;

@@ -12,6 +12,7 @@ import { extendTheme } from "@chakra-ui/react";
 import Dashboard from "./Content/Dashboard/Dashboard";
 import Login from "./Content/Auth/Login";
 import InfoCardEdit from "./Content/Dashboard/InfoCardEdit/InfoCardEdit";
+import ProjectsEdit from "./Content/Dashboard/ProjectsEdit/ProjectsEdit";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
     path: "/dashboard/infocardedit",
     element: <InfoCardEdit />,
   },
+  {
+    path: "/dashboard/projectsedit",
+    element: <ProjectsEdit />,
+  }
 ]);
 
 const config = {
