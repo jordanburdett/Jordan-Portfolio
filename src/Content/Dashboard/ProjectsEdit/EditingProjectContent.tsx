@@ -13,8 +13,6 @@ const EditingProjectContent = (props: Props) => {
   const [newContentText, setNewContentText] = useState("");
   const [newContentImageItem, setNewContentImageItem] = useState("");
   const [newContentImageAltText, setNewContentImageAltText] = useState("");
-  const [isEditingImage, setIsEditingImage] = useState(false);
-  const [isEditingAltImageText, setIsEditingAltImageText] = useState(false);
 
   const onRemoveBodyItemClick = (id: number) => {
     const newProject: Project = {

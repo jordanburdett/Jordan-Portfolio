@@ -1,4 +1,3 @@
-import { InfoCardType } from "../Content/Home/Data/CardMockData";
 import { getBaseApi } from "./BaseAPIHelper";
 import { Project } from "../Content/Portfolio/Projects/Data/project";
 
