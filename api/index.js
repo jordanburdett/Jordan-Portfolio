@@ -13,10 +13,12 @@ app.use(cors());
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var infoCardRouter = require('./routes/infoCard');
+var projectsRouter = require('./routes/projects');
 
 app.use("/api", indexRouter);
 app.use("/api/infocard", infoCardRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/projects", projectsRouter);
 
 if (process.env.ENVIRONMENT !== "cloud") {
     app.listen(localPort, () => {

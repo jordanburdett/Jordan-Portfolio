@@ -13,8 +13,9 @@ import {
   useMediaQuery,
   Collapse,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Project } from "./Data/project";
+import { getProjects } from "../../../Helpers/APIProjectHelper";
 
 type Props = {
   setActiveProject: (project: Project) => void;
@@ -115,10 +116,16 @@ export const projectsMock: Project[] = [
 ];
 
 const ProjectList = (props: Props) => {
-  const [projects] = useState(projectsMock);
+  const [projects, setProjects] = useState(projectsMock);
   const { colorMode } = useColorMode();
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   const [isTableShowing, setIsTableShowing] = useState(true);
+
+  useEffect(() => {
+    getProjects().then((result) => {
+      setProjects(result);
+    })
+  }, [])
 
   const onArrowClick = () => {
     setIsTableShowing((prev) => !prev);
