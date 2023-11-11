@@ -31,7 +31,10 @@ const ProjectsEdit = () => {
   useEffect(() => {
     getProjects().then((result) => {
       setProjects(result);
-      setSelectedProject(result[0]);
+
+      if (result.length > 0) {
+        setSelectedProject(result[0]);
+      }
     })
   }, [])
 
