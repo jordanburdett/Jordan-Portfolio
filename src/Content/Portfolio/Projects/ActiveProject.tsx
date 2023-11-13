@@ -1,4 +1,4 @@
-import { Box, Divider, Heading, Text, Image, Collapse } from "@chakra-ui/react";
+import { Box, Divider, Heading, Text, Image, Collapse, Link } from "@chakra-ui/react";
 import { Project } from "./Data/project";
 
 type Props = {
@@ -12,6 +12,9 @@ const ActiveProject = (props: Props) => {
   return (
     <Box margin={"30px"} marginTop={"0"}>
       <Heading>{props.activeProject.title}</Heading>
+      <Divider margin={"20px 0"} />
+      {props.activeProject.href !== null && <Link href={props.activeProject.href} isExternal>{props.activeProject.href}</Link>}
+      <Divider margin={"20px 0"} />
       <Divider margin={"20px 0"} />
       <Text fontSize={"lg"}>{props.activeProject.summary}</Text>
       <Divider margin={"20px 0"} />
