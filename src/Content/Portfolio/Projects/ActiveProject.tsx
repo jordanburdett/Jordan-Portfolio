@@ -1,4 +1,3 @@
-
 import { Box, Divider, Heading, Text, Image, Collapse } from "@chakra-ui/react";
 import { Project } from "./Data/project";
 
@@ -8,11 +7,13 @@ type Props = {
 
 const ActiveProject = (props: Props) => {
   if (props.activeProject === null) {
-    console.log("active project is null")
+    console.log("active project is null");
   }
   return (
     <Box margin={"30px"} marginTop={"0"}>
       <Heading>{props.activeProject.title}</Heading>
+      <Divider margin={"20px 0"} />
+      <Text fontSize={"lg"}>{props.activeProject.summary}</Text>
       <Divider margin={"20px 0"} />
       {props.activeProject.content.map((content) => {
         return (
@@ -23,12 +24,14 @@ const ActiveProject = (props: Props) => {
             key={content.text}
           >
             <Box maxWidth={"1000px"}>
-              <Text margin={"20px 0"}>{content.text}</Text>
-              <Image
-                src={content.image}
-                alt={content?.imageAlt}
-                objectFit={"cover"}
-              />
+              {content?.text && <Text margin={"20px 0"}>{content.text}</Text>}
+              {content?.image && (
+                <Image
+                  src={content?.image}
+                  alt={content?.imageAlt}
+                  objectFit={"cover"}
+                />
+              )}
               <Divider margin={"20px 0"} />
             </Box>
           </Collapse>
