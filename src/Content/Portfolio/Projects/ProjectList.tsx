@@ -67,7 +67,9 @@ const ProjectList = (props: Props) => {
         style={{ flexWrap: "wrap", width: "100%" }}
       >
         <Table variant="simple" size={["sm", "md", "lg"]}>
-          <TableCaption placement="top">Projects</TableCaption>
+          <TableCaption placement="top" textAlign={"left"}>
+            Projects
+          </TableCaption>
           <Thead>
             <Tr>
               <Th>Name</Th>
