@@ -5,7 +5,6 @@ import {
   Container,
   Heading,
   Stack,
-  useMediaQuery,
   SimpleGrid,
   VStack,
 } from "@chakra-ui/react";
@@ -19,7 +18,6 @@ import { getInfoCards } from "../../Helpers/APIInfoCardHelper";
 const Home = () => {
   const navigate = useNavigate();
   const [skillCards, setSkillCards] = useState<InfoCardType[]>([]);
-  const [isMobile] = useMediaQuery("(max-width: 1200px)");
 
   useEffect(() => {
     getInfoCards().then((result) => {
