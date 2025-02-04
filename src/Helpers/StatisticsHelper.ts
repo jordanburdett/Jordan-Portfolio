@@ -24,7 +24,7 @@ const getBrowserInfo = (): DeviceInfo => {
 const getPerformanceMetrics = (): PerformanceMetrics => {
   const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
   return {
-    pageLoadTime: navigation.loadEventEnd - navigation.navigationStart,
+    pageLoadTime: navigation.loadEventEnd - navigation.startTime,
     timeToInteractive: performance.now()
   };
 };
@@ -61,7 +61,7 @@ export const trackPageVisit = async (
 
     const pageVisit: PageVisit = {
       route,
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
       sessionId,
       timeSpent: 0, // This will be updated when leaving the page
       previousRoute,

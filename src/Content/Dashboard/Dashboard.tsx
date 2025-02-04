@@ -37,9 +37,6 @@ const Dashboard = () => {
         <Button onClick={aboutEditButton}>About Edit</Button>
         <Box p={4}>
           <VStack spacing={4} align="stretch">
-            <Button onClick={() => navigate("/dashboard/about")}>
-              Edit About Section
-            </Button>
             <Statistics />
           </VStack>
         </Box>

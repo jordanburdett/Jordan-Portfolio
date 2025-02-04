@@ -14,7 +14,7 @@ import Login from "./Content/Auth/Login";
 import InfoCardEdit from "./Content/Dashboard/InfoCardEdit/InfoCardEdit";
 import ProjectsEdit from "./Content/Dashboard/ProjectsEdit/ProjectsEdit";
 import AboutEdit from "./Content/Dashboard/AboutEdit/AboutEdit";
-import { trackPageVisit } from "./Helpers/StatisticsHelper";
+import { trackPageVisit, updateTimeSpent } from "./Helpers/StatisticsHelper";
 
 // RouteTracker component to handle page view tracking
 const RouteTracker: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -29,7 +29,7 @@ const RouteTracker: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
     return () => {
       const timeSpent = (Date.now() - startTime) / 1000; // Convert to seconds
-      trackPageVisit(currentRoute, location.pathname);
+      updateTimeSpent(currentRoute, timeSpent);
     };
   }, [location.pathname]);
 
