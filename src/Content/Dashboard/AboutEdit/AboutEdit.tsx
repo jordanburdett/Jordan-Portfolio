@@ -13,26 +13,53 @@ import {
   HStack,
   IconButton,
   Tooltip,
+  useToast,
 } from "@chakra-ui/react";
-import { AboutType, emptyAbout } from "../../About/Data/about";
-import { getAbout, updateAbout } from "../../../Helpers/APIAboutHelper";
 import { BiBold, BiItalic, BiParagraph, BiListUl, BiListOl } from "react-icons/bi";
 
+import { AboutType, emptyAbout } from "../../About/Data/about";
+import { getAbout, updateAbout } from "../../../Helpers/APIAboutHelper";
+
+interface FormatButton {
+  icon: React.ComponentType;
+  tooltip: string;
+  tags: [string, string];
+}
+
+/**
+ * AboutEdit component provides an interface for editing the About section content.
+ * It includes rich text formatting capabilities through HTML tags.
+ */
 const AboutEdit = () => {
   const navigate = useNavigate();
+  const toast = useToast();
+  
   const [about, setAbout] = useState<AboutType>(emptyAbout);
   const [isSaveButtonActive, setIsSaveButtonActive] = useState(false);
   const [textareaRef, setTextareaRef] = useState<HTMLTextAreaElement | null>(null);
 
   useEffect(() => {
-    if (localStorage.getItem("token") === null) {
+    if (!localStorage.getItem("token")) {
       navigate("/login");
     }
   }, [navigate]);
 
   useEffect(() => {
-    getAbout().then((result) => setAbout(result));
+    const fetchAboutData = async () => {
+      const result = await getAbout();
+      setAbout(result);
+    };
+
+    fetchAboutData();
   }, []);
+
+  const formatButtons: FormatButton[] = [
+    { icon: BiBold, tooltip: "Bold", tags: ["<strong>", "</strong>"] },
+    { icon: BiItalic, tooltip: "Italic", tags: ["<em>", "</em>"] },
+    { icon: BiParagraph, tooltip: "Paragraph", tags: ["<p>", "</p>"] },
+    { icon: BiListUl, tooltip: "Unordered List", tags: ["<ul>\n  <li>", "</li>\n</ul>"] },
+    { icon: BiListOl, tooltip: "Ordered List", tags: ["<ol>\n  <li>", "</li>\n</ol>"] },
+  ];
 
   const handleInputChange = (
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -42,23 +69,31 @@ const AboutEdit = () => {
       setIsSaveButtonActive(true);
     }
 
-    setAbout({
-      ...about,
+    setAbout((prev) => ({
+      ...prev,
       [field]: event.target.value,
-    });
+    }));
   };
 
   const handleSave = async () => {
     try {
       await updateAbout(about);
       setIsSaveButtonActive(false);
+      toast({
+        title: "Changes saved",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
     } catch (error) {
+      toast({
+        title: "Error saving changes",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
       console.error("Error saving about:", error);
     }
-  };
-
-  const onBackToDashboardClick = () => {
-    navigate("/dashboard");
   };
 
   const insertTag = (openTag: string, closeTag: string) => {
@@ -68,27 +103,26 @@ const AboutEdit = () => {
     const end = textareaRef.selectionEnd;
     const text = about.text;
     const selectedText = text.substring(start, end);
-    const newText = text.substring(0, start) + openTag + selectedText + closeTag + text.substring(end);
+    const newText = 
+      text.substring(0, start) + 
+      openTag + 
+      selectedText + 
+      closeTag + 
+      text.substring(end);
 
-    setAbout({
-      ...about,
+    setAbout((prev) => ({
+      ...prev,
       text: newText,
-    });
+    }));
     setIsSaveButtonActive(true);
   };
-
-  const formatButtons = [
-    { icon: BiBold, tooltip: "Bold", tags: ["<strong>", "</strong>"] },
-    { icon: BiItalic, tooltip: "Italic", tags: ["<em>", "</em>"] },
-    { icon: BiParagraph, tooltip: "Paragraph", tags: ["<p>", "</p>"] },
-    { icon: BiListUl, tooltip: "Unordered List", tags: ["<ul>\n  <li>", "</li>\n</ul>"] },
-    { icon: BiListOl, tooltip: "Ordered List", tags: ["<ol>\n  <li>", "</li>\n</ol>"] },
-  ];
 
   return (
     <Box p={4}>
       <Flex justifyContent="space-between" mb={4}>
-        <Button onClick={onBackToDashboardClick}>Back to Dashboard</Button>
+        <Button onClick={() => navigate("/dashboard")}>
+          Back to Dashboard
+        </Button>
         <Button
           colorScheme="blue"
           isDisabled={!isSaveButtonActive}
@@ -102,12 +136,12 @@ const AboutEdit = () => {
         <FormControl>
           <FormLabel>About Text</FormLabel>
           <HStack mb={2} spacing={2}>
-            {formatButtons.map((button, index) => (
-              <Tooltip key={index} label={button.tooltip}>
+            {formatButtons.map(({ icon: Icon, tooltip, tags }, index) => (
+              <Tooltip key={index} label={tooltip}>
                 <IconButton
-                  aria-label={button.tooltip}
-                  icon={<button.icon />}
-                  onClick={() => insertTag(button.tags[0], button.tags[1])}
+                  aria-label={tooltip}
+                  icon={<Icon />}
+                  onClick={() => insertTag(tags[0], tags[1])}
                 />
               </Tooltip>
             ))}
@@ -116,7 +150,7 @@ const AboutEdit = () => {
             value={about.text}
             onChange={(e) => handleInputChange(e, "text")}
             minHeight="200px"
-            ref={(ref) => setTextareaRef(ref)}
+            ref={setTextareaRef}
           />
         </FormControl>
 
