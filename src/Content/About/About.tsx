@@ -2,7 +2,7 @@ import { Box, Flex, Image } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 import NavBar from "../../Navigation/NavBar/NavBar";
-import { AboutType, emptyAbout } from "./Data/about";
+import { AboutType, emptyAbout } from "./Models/about";
 import { getAbout } from "../../Helpers/APIAboutHelper";
 
 /**

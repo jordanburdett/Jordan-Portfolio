@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { BiBold, BiItalic, BiParagraph, BiListUl, BiListOl } from "react-icons/bi";
 
-import { AboutType, emptyAbout } from "../../About/Data/about";
+import { AboutType, emptyAbout } from "../../About/Models/about";
 import { getAbout, updateAbout } from "../../../Helpers/APIAboutHelper";
 
 interface FormatButton {

@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { ChakraProvider } from "@chakra-ui/react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, useLocation } from "react-router-dom";
 import Home from "./Content/Home/Home";
 import About from "./Content/About/About";
 import Portfolio from "./Content/Portfolio/Portfolio";
@@ -14,51 +14,83 @@ import Login from "./Content/Auth/Login";
 import InfoCardEdit from "./Content/Dashboard/InfoCardEdit/InfoCardEdit";
 import ProjectsEdit from "./Content/Dashboard/ProjectsEdit/ProjectsEdit";
 import AboutEdit from "./Content/Dashboard/AboutEdit/AboutEdit";
+import { trackPageVisit } from "./Helpers/StatisticsHelper";
+
+// RouteTracker component to handle page view tracking
+const RouteTracker: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const location = useLocation();
+
+  React.useEffect(() => {
+    const startTime = Date.now();
+    const currentRoute = location.pathname;
+
+    // Track the initial page visit
+    trackPageVisit(currentRoute, null);
+
+    return () => {
+      const timeSpent = (Date.now() - startTime) / 1000; // Convert to seconds
+      trackPageVisit(currentRoute, location.pathname);
+    };
+  }, [location.pathname]);
+
+  return <>{children}</>;
+};
+
+// Wrapper component for routes that need tracking
+const withRouteTracking = (Component: React.ComponentType) => {
+  return function WrappedComponent() {
+    return (
+      <RouteTracker>
+        <Component />
+      </RouteTracker>
+    );
+  };
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: withRouteTracking(Home)(),
   },
   {
     path: "/home",
-    element: <Home />,
+    element: withRouteTracking(Home)(),
   },
   {
     path: "/about",
-    element: <About />,
+    element: withRouteTracking(About)(),
   },
   {
     path: "/portfolio",
-    element: <Portfolio />,
+    element: withRouteTracking(Portfolio)(),
   },
   {
     path: "/resume",
-    element: <Resume />,
+    element: withRouteTracking(Resume)(),
   },
   {
     path: "/contact",
-    element: <Contact />,
+    element: withRouteTracking(Contact)(),
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: withRouteTracking(Dashboard)(),
   },
   {
     path: "/login",
-    element: <Login />,
+    element: withRouteTracking(Login)(),
   },
   {
     path: "/dashboard/infocardedit",
-    element: <InfoCardEdit />,
+    element: withRouteTracking(InfoCardEdit)(),
   },
   {
     path: "/dashboard/projectsedit",
-    element: <ProjectsEdit />,
+    element: withRouteTracking(ProjectsEdit)(),
   },
   {
     path: "/dashboard/aboutedit",
-    element: <AboutEdit />,
+    element: withRouteTracking(AboutEdit)(),
   }
 ]);
 

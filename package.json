@@ -23,7 +23,9 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.15.0",
-    "styled-components": "^6.0.7"
+    "recharts": "^2.15.1",
+    "styled-components": "^6.0.7",
+    "uuid": "^11.0.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

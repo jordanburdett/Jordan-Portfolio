@@ -1,4 +1,4 @@
-import { AboutType } from "../Content/About/Data/about";
+import { AboutType } from "../Content/About/Models/about";
 import { getBaseApi } from "./BaseAPIHelper";
 
 const baseAbout = getBaseApi() + "/about";
