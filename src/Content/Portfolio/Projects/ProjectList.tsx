@@ -89,7 +89,13 @@ const ProjectList = (props: Props) => {
                   }
                 }}
                 _hover={{ bg: colorMode === "light" ? "gray.100" : "gray.700" }}
-                bg={project === props.activeProject ? "gray.700" : "default"}
+                bg={
+                  project === props.activeProject
+                    ? colorMode === "light"
+                      ? "gray.200"
+                      : "gray.700"
+                    : "default"
+                }
                 key={project.title}
               >
                 <Td>
