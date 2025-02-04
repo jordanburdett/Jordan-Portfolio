@@ -13,6 +13,7 @@ import Dashboard from "./Content/Dashboard/Dashboard";
 import Login from "./Content/Auth/Login";
 import InfoCardEdit from "./Content/Dashboard/InfoCardEdit/InfoCardEdit";
 import ProjectsEdit from "./Content/Dashboard/ProjectsEdit/ProjectsEdit";
+import AboutEdit from "./Content/Dashboard/AboutEdit/AboutEdit";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard/projectsedit",
     element: <ProjectsEdit />,
+  },
+  {
+    path: "/dashboard/aboutedit",
+    element: <AboutEdit />,
   }
 ]);
 

@@ -1,30 +1,45 @@
-
 import NavBar from "../../Navigation/NavBar/NavBar";
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { AboutType, emptyAbout } from "./Data/about";
+import { getAbout } from "../../Helpers/APIAboutHelper";
 
 const About = () => {
+  const [about, setAbout] = useState<AboutType>(emptyAbout);
+
+  useEffect(() => {
+    getAbout().then((result) => setAbout(result));
+  }, []);
+
   return (
     <>
       <NavBar />
       <Flex flexWrap={"wrap"} margin={"20px"} justifyContent={"center"}>
         <Box maxWidth="800px" minWidth="300px">
-          <Image src={"https://fakeimg.pl/1600x900"} alt={"me"} marginBottom={"30px"}/>
+          <Image 
+            src={about.imageUrl || "https://fakeimg.pl/1600x900"} 
+            alt={about.imageAlt || "me"} 
+            marginBottom={"30px"}
+          />
         </Box>
         <Box margin={"0 30px"}>
-          <Text maxWidth={"600px"}>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-            mollitia, voluptate nihil vero veniam rerum unde iste, inventore
-            possimus reiciendis, nisi quo quia! Dicta, odit? Quam sint minus
-            provident incidunt.
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-            mollitia, voluptate nihil vero veniam rerum unde iste, inventore
-            possimus reiciendis, nisi quo quia! Dicta, odit? Quam sint minus
-            provident incidunt.
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-            mollitia, voluptate nihil vero veniam rerum unde iste, inventore
-            possimus reiciendis, nisi quo quia! Dicta, odit? Quam sint minus
-            provident incidunt.
-          </Text>
+          <Box 
+            maxWidth={"600px"}
+            dangerouslySetInnerHTML={{ __html: about.text }}
+            sx={{
+              'p': {
+                marginBottom: '1rem'
+              },
+              'ul, ol': {
+                marginLeft: '2rem',
+                marginBottom: '1rem'
+              },
+              'h1, h2, h3, h4, h5, h6': {
+                marginBottom: '0.5rem',
+                fontWeight: 'bold'
+              }
+            }}
+          />
         </Box>
       </Flex>
     </>
