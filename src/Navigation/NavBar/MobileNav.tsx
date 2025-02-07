@@ -8,6 +8,7 @@ import {
   useColorModeValue,
   Collapse,
   Circle,
+  Center,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import navItems from "../Data/navItems";
@@ -26,13 +27,14 @@ const MobileNav = () => {
 
   return (
     <>
-      <HStack spacing="8" justifyContent={"space-between"} bg={navColors}>
-        <Box p="3">
+      <Flex bg={navColors} position="relative" h="60px" alignItems="center">
+        <Box p="3" position="absolute" left="0">
           <HStack>
             <Text fontSize={"xl"}>Jordan</Text>
           </HStack>
         </Box>
-        <Box p="3">
+        
+        <Center flex="1">
           <Circle 
             size="40px" 
             bg={monogramBg} 
@@ -44,9 +46,12 @@ const MobileNav = () => {
           >
             JB
           </Circle>
-        </Box>
+        </Center>
+
         <Box
           p="3"
+          position="absolute"
+          right="0"
           onClick={hamburgerClicked}
           _hover={{ background: "lightgray" }}
           cursor="pointer"
@@ -57,7 +62,7 @@ const MobileNav = () => {
             h={6}
           />
         </Box>
-      </HStack>
+      </Flex>
 
       <Flex flexWrap={"wrap"} bg={navColors}>
         <Collapse

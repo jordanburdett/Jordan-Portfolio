@@ -1,209 +1,34 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/connection');
+const StatsService = require('../services/statsService');
+const { statsQuerySchema } = require('../validation/statsSchema');
+const { handleError, APIError } = require('../utils/errorHandler');
 
 const connectToCollection = async (collectionName) => {
   try {
     return await db.collection(collectionName);
   } catch (error) {
     console.error(`Error connecting to collection ${collectionName}:`, error);
-    throw error;
+    throw new APIError(`Failed to connect to ${collectionName} collection`, 500);
   }
 };
 
 // Get aggregated statistics
 router.get('/', async (req, res) => {
   try {
-    const statsCollection = await connectToCollection('statistics');
-    
-    const pipeline = [
-      {
-        $addFields: {
-          // Convert timestamp string to Date object
-          timestampDate: { 
-            $dateFromString: { 
-              dateString: "$timestamp",
-              onError: new Date(0) // fallback date if parsing fails
-            } 
-          }
-        }
-      },
-      {
-        $facet: {
-          // Total visits and unique visitors
-          overview: [
-            {
-              $group: {
-                _id: null,
-                totalVisits: { $sum: 1 },
-                uniqueVisitors: { $addToSet: '$sessionId' },
-                totalTimeSpent: { $sum: '$timeSpent' }
-              }
-            }
-          ],
-          // Visits by country
-          visitsByCountry: [
-            {
-              $group: {
-                _id: '$locationInfo.country',
-                count: { $sum: 1 }
-              }
-            }
-          ],
-          // Visits by device
-          visitsByDevice: [
-            {
-              $group: {
-                _id: '$deviceInfo.deviceType',
-                count: { $sum: 1 }
-              }
-            }
-          ],
-          // Visits by route
-          visitsByRoute: [
-            {
-              $group: {
-                _id: '$route',
-                count: { $sum: 1 }
-              }
-            }
-          ],
-          // Daily visits
-          dailyVisits: [
-            {
-              $group: {
-                _id: {
-                  $dateToString: {
-                    format: '%Y-%m-%d',
-                    date: '$timestampDate'
-                  }
-                },
-                visits: { $sum: 1 }
-              }
-            },
-            {
-              $sort: { _id: 1 }
-            }
-          ]
-        }
-      },
-      // Transform the results into the expected format
-      {
-        $project: {
-          totalVisits: { 
-            $ifNull: [
-              { $arrayElemAt: ['$overview.totalVisits', 0] },
-              0
-            ]
-          },
-          uniqueVisitors: { 
-            $ifNull: [
-              { $size: { $arrayElemAt: ['$overview.uniqueVisitors', 0] } },
-              0
-            ]
-          },
-          averageTimeSpent: {
-            $ifNull: [
-              {
-                $divide: [
-                  { $arrayElemAt: ['$overview.totalTimeSpent', 0] },
-                  { $arrayElemAt: ['$overview.totalVisits', 0] }
-                ]
-              },
-              0
-            ]
-          },
-          visitsByCountry: {
-            $ifNull: [
-              {
-                $arrayToObject: {
-                  $map: {
-                    input: '$visitsByCountry',
-                    as: 'country',
-                    in: {
-                      k: { $ifNull: ['$$country._id', 'Unknown'] },
-                      v: '$$country.count'
-                    }
-                  }
-                }
-              },
-              {}
-            ]
-          },
-          visitsByDevice: {
-            $ifNull: [
-              {
-                $arrayToObject: {
-                  $map: {
-                    input: '$visitsByDevice',
-                    as: 'device',
-                    in: {
-                      k: { $ifNull: ['$$device._id', 'Unknown'] },
-                      v: '$$device.count'
-                    }
-                  }
-                }
-              },
-              {}
-            ]
-          },
-          visitsByRoute: {
-            $ifNull: [
-              {
-                $arrayToObject: {
-                  $map: {
-                    input: '$visitsByRoute',
-                    as: 'route',
-                    in: {
-                      k: { $ifNull: ['$$route._id', '/'] },
-                      v: '$$route.count'
-                    }
-                  }
-                }
-              },
-              {}
-            ]
-          },
-          dailyVisits: {
-            $ifNull: [
-              {
-                $map: {
-                  input: '$dailyVisits',
-                  as: 'day',
-                  in: {
-                    date: '$$day._id',
-                    visits: '$$day.visits'
-                  }
-                }
-              },
-              []
-            ]
-          }
-        }
-      }
-    ];
-
-    const result = await statsCollection.aggregate(pipeline).next();
-    
-    if (!result) {
-      return res.json({
-        totalVisits: 0,
-        uniqueVisitors: 0,
-        averageTimeSpent: 0,
-        visitsByCountry: {},
-        visitsByDevice: {},
-        visitsByRoute: {},
-        dailyVisits: []
-      });
+    const { error, value } = statsQuerySchema.validate(req.query);
+    if (error) {
+      throw new APIError(error.details[0].message, 400);
     }
 
+    const statsCollection = await connectToCollection('statistics');
+    const statsService = new StatsService(statsCollection);
+    
+    const result = await statsService.getAggregatedStats(value);
     res.json(result);
   } catch (error) {
-    console.error('Error getting statistics:', error);
-    res.status(500).json({
-      error: 'Failed to fetch statistics',
-      details: error.message
-    });
+    handleError(res, error);
   }
 });
 
