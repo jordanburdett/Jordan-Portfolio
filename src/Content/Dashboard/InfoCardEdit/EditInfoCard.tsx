@@ -13,10 +13,14 @@ import {
   Text,
   Textarea,
   Checkbox,
+  HStack,
+  useToast,
+  Container,
 } from "@chakra-ui/react";
 import {
   addNewInfoCard,
   updateInfoCard,
+  deleteInfoCard,
 } from "../../../Helpers/APIInfoCardHelper";
 
 type Props = {
@@ -29,6 +33,8 @@ type Props = {
 
 const EditInfoCard = (props: Props) => {
   const [isSaveButtonActive, setisSaveButtonActive] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const toast = useToast();
 
   const addNewBodyItem = () => {
     const newBodyItem = {
@@ -119,6 +125,44 @@ const EditInfoCard = (props: Props) => {
     setisSaveButtonActive(false);
   };
 
+  const handleDelete = async () => {
+    try {
+      setIsDeleting(true);
+      const result = await deleteInfoCard(props.selectedInfoCard.id);
+      
+      if (result.success) {
+        const newInfoCards = props.infoCards.filter(
+          (card) => card.id !== props.selectedInfoCard.id
+        );
+        props.setInfoCards(newInfoCards);
+        toast({
+          title: "Info Card Deleted",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: result.message || "Failed to delete info card",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
     <>
       {props.isEditing ? (
@@ -162,18 +206,33 @@ const EditInfoCard = (props: Props) => {
           </Card>
         </>
       ) : (
-        <InfoCard
-          header={props.selectedInfoCard?.Header}
-          bodyItems={props.selectedInfoCard?.bodyItems}
-        />
+        <Container maxW="md" p={4} minW="320px">
+          <Box maxW="sm" minW="300px" mx="auto">
+            <InfoCard
+              header={props.selectedInfoCard?.Header}
+              bodyItems={props.selectedInfoCard?.bodyItems}
+              fullWidth={true}
+            />
+          </Box>
+        </Container>
       )}
-      <Checkbox
-        isChecked={props.selectedInfoCard.Hidden}
-        onChange={handleHiddenChange}
-      >
-        isHidden
-      </Checkbox>
-      {isSaveButtonActive && <Button onClick={saveInfoCard}>Save</Button>}
+      <HStack spacing={4} mt={4}>
+        <Checkbox
+          isChecked={props.selectedInfoCard.Hidden}
+          onChange={handleHiddenChange}
+        >
+          isHidden
+        </Checkbox>
+        {isSaveButtonActive && <Button onClick={saveInfoCard}>Save</Button>}
+        <Button
+          colorScheme="red"
+          onClick={handleDelete}
+          isLoading={isDeleting}
+          loadingText="Deleting"
+        >
+          Delete
+        </Button>
+      </HStack>
     </>
   );
 };

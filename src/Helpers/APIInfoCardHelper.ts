@@ -41,3 +41,15 @@ export const addNewInfoCard = async (infoCard: InfoCardType) => {
   });
   return await result.json();
 };
+
+export const deleteInfoCard = async (infoCardId: string) => {
+  const result = await fetch(baseInfoCard + "/deleteinfocard", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: localStorage.getItem("token") || "",
+    },
+    body: JSON.stringify({ id: infoCardId }),
+  });
+  return await result.json();
+};

@@ -30,6 +30,7 @@ const InfoCard = (props: Props) => {
     <Card
       height="100%"
       width="100%"
+      minW="300px"
       boxShadow="lg"
       borderRadius="xl"
       overflow="hidden"
