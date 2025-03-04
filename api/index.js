@@ -16,14 +16,17 @@ var infoCardRouter = require('./routes/infoCard');
 var projectsRouter = require('./routes/projects');
 var aboutRouter = require('./routes/about');
 var statisticsRouter = require('./routes/statistics');
+var usersRouter = require('./routes/users');
 
 app.use("/api", indexRouter);
 app.use("/api/infocard", infoCardRouter);
 app.use("/api/projects", projectsRouter);
 app.use("/api/about", aboutRouter);
 app.use("/api/statistics", statisticsRouter);
+app.use("/api/users", usersRouter);
 
-if (process.env.ENVIRONMENT !== "cloud") {
+// Only start the server if we're not in a test environment
+if (process.env.NODE_ENV !== 'test' && process.env.ENVIRONMENT !== "cloud") {
     app.listen(localPort, () => {
         console.log(`Server running on port ${localPort}`);
     });

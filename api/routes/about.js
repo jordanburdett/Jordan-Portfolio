@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const authenticateJwt = require("../auth/auth");
+const { authenticateToken } = require("../middleware/authenticate");
 const db = require("../db/connection");
 
 /**
@@ -39,7 +39,7 @@ router.get("/", async (req, res) => {
  * Update about data
  * Protected endpoint - requires admin authentication
  */
-router.put("/", authenticateJwt, async (req, res) => {
+router.put("/", authenticateToken, async (req, res) => {
   try {
     if (!req?.user?.admin) {
       return res.status(403).json({ 
