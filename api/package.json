@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch --runInBand"
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +17,24 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.2.0",
     "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^9.1.1",
+    "supertest": "^6.3.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testTimeout": 30000,
+    "setupFilesAfterEnv": ["./jest.setup.js"],
+    "testPathIgnorePatterns": ["/node_modules/"],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "routes/**/*.js",
+      "services/**/*.js",
+      "utils/**/*.js",
+      "auth/**/*.js"
+    ],
+    "coverageDirectory": "coverage"
   }
 }
